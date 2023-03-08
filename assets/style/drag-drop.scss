@@ -15,46 +15,47 @@ body{
     translate: -50%;
     margin-left: 50%;
     margin-top: 20px;
-    border: 2px dashed rgb(76, 98, 113);
+    border: 2px solid rgb(168, 172, 174);
     background-color: rgb(76, 98, 113);
     width: 45%;
     height: 300px;
     border-radius: 10px;
     p{
         height: 40%;
-        color:rgb(52, 201, 211);
+        color:rgb(239, 245, 246);
         margin-top: 30px;
         margin-left: 50%;
         translate: -27%;
     }
-}
-.dropZone_div{
-    height: 60%;
-    width: 100%;
-}
-
-.dropZone_over{
-    background-color: rgb(12, 141, 156);
-}
-
-
-
-#icon{
-    margin-top: 20%;
-    cursor: pointer;
-    font-size: 80px;
-    color: rgb(52, 201, 211);
-    transition: 0.3s;
-}
-
-#icon:hover{
-    color: rgb(180, 214, 216);
-    transform: scale(1);
-}
-
-.file{
-
+    .dropZone_div{
+        height: 60%;
+        width: 100%;
+        #icon{
+            margin-top: 20%;
+            cursor: pointer;
+            font-size: 40px;
+            color: rgb(193, 193, 193);
+            transition: transform 0.4s ease-in-out;
+        }
+        
+        #icon:hover{
+            color: white;
+            transform: scale(2);
+        }
+    }
     
+    
+}
+
+
+// in js we will use this 
+.dropZone_over{
+        background-color:  rgb(99, 128, 147);
+    }
+
+
+.dropZone:hover{
+    border: dashed 4px rgb(248, 246, 246);
 }
 
 table {
@@ -71,8 +72,34 @@ table {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
+    color: white;
   }
   
-//   tr:nth-child(even) {
-//     background-color: #dddddd;
-//   }
+  .progress-box{
+    margin-top: 10px;
+    height: 20px;
+    width: 80%;
+  }
+
+  .uploadProgress{
+    height: 10px;
+    background-color: aqua;
+    border-radius: 5px;
+    width: 70%;
+  }
+  .uploadProgress_backround{
+    width: 80%;
+    height: 10px;
+    border-radius: 5px;
+    background-color: white;
+
+  }
+
+  .icon-check-box{
+    width: 20%;
+  }
+  .Icon-check{
+    width: 100%;
+    color: white;
+    font-size: 25px;
+  }

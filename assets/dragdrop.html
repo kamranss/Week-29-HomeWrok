@@ -19,7 +19,7 @@
     <div class="dropZone ">
         <div class="dropZone_div d-flex justify-content-center align-items-center">
             <input id="inputFile" class="file d-none" type="file">
-            <i id="icon" class="fa-solid fa-arrow-up-from-bracket"></i>
+            <i id="icon" class="fa-solid fa-cloud-arrow-up"></i>
         </div>
         <p> Drag & Drop, upload file</p>
     </div>
@@ -34,16 +34,28 @@
                 <th scope="col">File_content</th>
                 <th scope="col">File_Size</th>
                 <th scope="col">File_Type</th>
+                <th scope="col">Progress</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
+        <tbody class="tBody">
+            <!-- <tr>
                 <th scope="row">1</th>
                 <td>Mark</td>
                 <td>Otto</td>
                 <td>@mdo</td>
-                <td>@Excel</td>
-            </tr>
+                <td> <i class="fa-solid fa-file"></i></td>
+                <td class="td-4 d-flex justify-content-between">
+                    <div class="progress-box">
+                       <div class="uploadProgress_backround" >
+                        <div class="uploadProgress"></div>
+                       </div>
+                        <span class="percent"></span>
+                    </div>
+                   <div class="icon-check-box">
+                    <i class="fa-solid fa-check Icon-check"></i>
+                   </div>
+                </td>
+            </tr> -->
 
         </tbody>
     </table>
