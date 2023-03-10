@@ -52,6 +52,10 @@ body {
   border: dashed 4px rgb(248, 246, 246);
 }
 
+.btn-box {
+  margin-top: 10px;
+}
+
 table {
   width: 100%;
   font-family: arial, sans-serif;

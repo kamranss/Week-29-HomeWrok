@@ -1,7 +1,8 @@
 const dropZone = document.querySelector(".dropZone")
 const inputFile = document.getElementById("inputFile");
 const icon = document.querySelector("#icon");
-const tBody = document.querySelector(".tBody")
+const tHead = document.querySelector(".tHead")
+
 let files; // dropped filles will be assigned to this global variable
 
 icon.addEventListener("click", function () {
@@ -143,10 +144,30 @@ dropZone.addEventListener("drop", (event) => {
             let fileSize;
             (file.size < 1024) ? fileSize = file.size + " KB" : fileSize = (file.size / (1024 * 1024)).toFixed(2) + " MB";
 
+
             
-            let tr = document.createElement("tr");
-            tr.innerHTML = `
-            <tr>
+            if (tHead.innerText == "") {
+                let Headtr = document.createElement("tr")
+                Headtr.innerHTML = `
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">File_Name</th>
+                    <th scope="col">File_content</th>
+                    <th scope="col">File_Size</th>
+                    <th scope="col">File_Type</th>
+                    <th scope="col">Progress</th>
+                    <th scope="col">Delete</th>
+                </tr>
+                </thead>`;
+            
+            tHead.append(Headtr);
+
+            }           
+
+            let Bodytr = document.createElement("tr");
+            Bodytr.innerHTML = `
+            <tr id = "trItems">
             <th id="number" scope="row"></th>
             <td class="td ">${fileName}</td>
             <td class="td d-flex justify-content-center"><img src="${imgSource}" class="image" alt=""></td>
@@ -169,10 +190,8 @@ dropZone.addEventListener("drop", (event) => {
                 </div>
             </td>
             </tr>`;
-
-            
-
-            tBody.append(tr);
+            const tBody = document.querySelector(".tBody")
+            tBody.append(Bodytr);
 
             numarationforItems();
 
@@ -185,7 +204,13 @@ dropZone.addEventListener("drop", (event) => {
                 icondeleteBox.addEventListener("click", function() {
                     let grandParentNode = icondeleteBox.closest("tr");
                     grandParentNode.parentNode.removeChild(grandParentNode);
-            
+                    
+                    let trItems = document.getElementById("trItems")
+                    if (trItems.innerHTML == "") {
+                        
+                        tHead.parentNode.removeChild(tHead)
+                    }
+
                     numarationforItems();
                     
                   });
