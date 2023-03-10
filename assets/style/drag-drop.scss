@@ -62,7 +62,7 @@ table {
     width: 100%;
     font-family: arial, sans-serif;
     // border-collapse: collapse;
-    height: 30px;
+    // height: 20px;
     margin-top: 20px;
     margin-left: 50%;
     translate: -50%;
@@ -75,6 +75,9 @@ table {
     color: white;
   }
   
+  .td{
+    // height: 35px;
+  }
   .progress-box{
     margin-top: 10px;
     height: 20px;
@@ -103,3 +106,18 @@ table {
     color: white;
     font-size: 25px;
   }
+  .icon-delete-box{
+   
+  }
+  .Icon-delete{
+    cursor: pointer;
+  }
+
+  .image{
+
+    height: 30px;
+    width: 30px;
+
+  }
+
+  

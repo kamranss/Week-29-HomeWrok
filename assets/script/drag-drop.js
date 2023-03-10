@@ -4,40 +4,109 @@ const icon = document.querySelector("#icon");
 const tBody = document.querySelector(".tBody")
 let files; // dropped filles will be assigned to this global variable
 
-icon.addEventListener("click", function(){
+icon.addEventListener("click", function () {
     inputFile.click();
-    
+
 });
 
-inputFile.onchange = ({target}) => {
-    console.log(target.files);
-}
 
-dropZone.addEventListener("dragover", (event)=>{
+dropZone.addEventListener("dragover", (event) => {
     event.preventDefault()
     dropZone.classList.add("dropZone_over");
-  
+
 })
 
-dropZone.addEventListener("dragleave", ()=>{
+dropZone.addEventListener("dragleave", () => {
     dropZone.classList.remove("dropZone_over");
-   
+
 })
 
 
-// Manage the drop event
-dropZone.addEventListener("drop", (event)=>{
+// manage while choosing file
+inputFile.onchange = function(event){
     event.preventDefault();
     // files = event.dataTransfer.files()
     // console.log(event.dataTransfer);
-    
+
+
+    // Remove the style while drop event accur
+    dropZone.classList.remove("dropZone_over");
+
+    // Get the dropped files
+   Array.from(event.target.files).forEach(file => {
+    let reader = new FileReader();
+
+        reader.onloadend = function (e) {
+
+            let imgSource = e.target.result;
+            console.log(imgSource);
+
+            let fileName = file.name; //getting file name
+            if (fileName.length >= 12) { //if file name length is greater than 12 then split it and add ...
+                let splitName = fileName.split('.');
+                fileName = splitName[0].substring(0, 13) + "... ." + splitName[1];
+            }
+
+            // let fileTotal = Math.floor(total / 1000); //gettting total file size in KB from bytes
+            let fileSize;
+            (file.size < 1024) ? fileSize = file.size + " KB" : fileSize = (file.size / (1024 * 1024)).toFixed(2) + " MB";
+
+
+            let tr = document.createElement("tr");
+            tr.innerHTML = `
+            <tr>
+            <th scope="row">1</th>
+            <td class="td ">${fileName}</td>
+            <td class="td d-flex justify-content-center"><img src="${imgSource}" class="image" alt=""></td>
+            <td class="td"> ${fileSize}</td>
+            <td class="td "> <i class="fa-solid fa-file"></i></td>
+            <td  class="td d-flex justify-content-between">
+                <div class="progress-box">
+                    <div class="uploadProgress_backround">
+
+                        <div class="uploadProgress"></div>
+                        
+                    </div>
+
+                        <span class="percent"></span>
+
+                </div>
+                <div class="icon-check-box">
+                    <i class="fa-solid fa-check Icon-check"></i>
+                </div>
+               
+            </td>
+            <td class="td">
+                <div class="icon-delete-box d-flex justify-content-center">
+                    <i class="fa-solid fa-trash-can Icon-delete"></i>
+                </div>
+            </td>
+            </tr>`;
+
+            tBody.append(tr);
+
+        }
+
+        reader.readAsDataURL(file);
+
+   });
+
+        
+}
+
+// Manage the drop event
+dropZone.addEventListener("drop", (event) => {
+    event.preventDefault();
+    // files = event.dataTransfer.files()
+    // console.log(event.dataTransfer);
+
 
     // Remove the style while drop event accur
     dropZone.classList.remove("dropZone_over");
 
     // Get the dropped files
     let files = event.dataTransfer.files;
-
+    console.log(event);
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
 
@@ -45,48 +114,84 @@ dropZone.addEventListener("drop", (event)=>{
 
         reader.onloadend = function (e) {
 
+            let imgSource = e.target.result;
+            // the number of uploaded item
+          
+            
+            console.log(imgSource);
 
-        let fileName = file.name; //getting file name
-        if (fileName.length >= 12) { //if file name length is greater than 12 then split it and add ...
-            let splitName = fileName.split('.');
-            fileName = splitName[0].substring(0, 13) + "... ." + splitName[1];
+            let fileName = file.name; //getting file name
+            if (fileName.length >= 12) { //if file name length is greater than 12 then split it and add ...
+                let splitName = fileName.split('.');
+                fileName = splitName[0].substring(0, 13) + "... ." + splitName[1];
+            }
+            
+            let numberofItemDiv = document.getElementById("numberofItemDiv");
+            let uploadedItemNumber = 1;
+            if (numberofItemDiv.innerText > 0) {
+                numberofItemDiv.innerText++
+                uploadedItemNumber = numberofItemDiv.innerText;
+                
+                numberofItemDiv.innerText ++;
+                
+            }
+            else{
+                numberofItemDiv.innerText = 1;
+                uploadedItemNumber = numberofItemDiv.innerText;
+            }
+           
+            
+            // let fileTotal = Math.floor(total / 1000); //gettting total file size in KB from bytes
+            let fileSize;
+            (file.size < 1024) ? fileSize = file.size + " KB" : fileSize = (file.size / (1024 * 1024)).toFixed(2) + " MB";
+
+            
+            let tr = document.createElement("tr");
+            tr.innerHTML = `
+            <tr>
+            <th scope="row">${uploadedItemNumber}</th>
+            <td class="td ">${fileName}</td>
+            <td class="td d-flex justify-content-center"><img src="${imgSource}" class="image" alt=""></td>
+            <td class="td"> ${fileSize}</td>
+            <td class="td "> <i class="fa-solid fa-file"></i></td>
+            <td  class="td d-flex justify-content-between">
+                <div class="progress-box">
+                    <div class="uploadProgress_backround">
+
+                        <div class="uploadProgress"></div>
+                        
+                    </div>
+
+                        <span class="percent"></span>
+
+                </div>
+                <div class="icon-check-box">
+                    <i class="fa-solid fa-check Icon-check"></i>
+                </div>
+               
+            </td>
+            <td class="td">
+                <div class="icon-delete-box d-flex justify-content-center">
+                    <i class="fa-solid fa-trash-can Icon-delete"></i>
+                </div>
+            </td>
+            </tr>`;
+
+            tBody.append(tr);
+
         }
 
-        let fileTotal = Math.floor(total / 1000); //gettting total file size in KB from bytes
-        let fileSize;
-        (file.size < 1024) ? fileSize = file.size + " KB" : fileSize = (file.size / (1024*1024)).toFixed(2) + " MB";
+        reader.readAsDataURL(file);
+       
 
-        let tr = document.createElement("tr");
-        tr.innerHTML =  `<tr>
-        <th scope="row">1</th>
-        <td>${fileName}</td>
-        <td><img src="${e.target.result}" alt=""></td>
-        <td> ${fileSize}</td>
-        <td> <i class="fa-solid fa-file"></i></td>
-        <td class="td-4 d-flex justify-content-between">
-            <div class="progress-box">
-            <div class="uploadProgress_backround" >
-                <div class="uploadProgress"></div>
-            </div>
-                <span class="percent"></span>
-            </div>
-        <div class="icon-check-box">
-            <i class="fa-solid fa-check Icon-check"></i>
-        </div>
-        </td>
-        </tr>`;
-        tBody.append(tr);
-            
-        }
-
-        
-            
     }
 
 
 
-    
+
 })
 
 
+
+  
 

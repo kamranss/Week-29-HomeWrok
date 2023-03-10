@@ -55,7 +55,6 @@ body {
 table {
   width: 100%;
   font-family: arial, sans-serif;
-  height: 30px;
   margin-top: 20px;
   margin-left: 50%;
   translate: -50%;
@@ -96,4 +95,13 @@ td, th {
   width: 100%;
   color: white;
   font-size: 25px;
+}
+
+.Icon-delete {
+  cursor: pointer;
+}
+
+.image {
+  height: 30px;
+  width: 30px;
 }/*# sourceMappingURL=drag-drop.css.map */

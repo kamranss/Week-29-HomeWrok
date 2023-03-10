@@ -26,6 +26,9 @@
     <div class="filesLocation">
 
     </div>
+    <div class="d-flex justify-content-center col-12">
+        <button class="btn btn-danger col-10">Delete all</button>
+    </div>
     <table class="col-10 tablee">
         <thead>
             <tr>
@@ -35,9 +38,11 @@
                 <th scope="col">File_Size</th>
                 <th scope="col">File_Type</th>
                 <th scope="col">Progress</th>
+                <th scope="col">Delete</th>
             </tr>
         </thead>
         <tbody class="tBody">
+           
             <!-- <tr>
                 <th scope="row">1</th>
                 <td>Mark</td>
@@ -53,13 +58,18 @@
                     </div>
                    <div class="icon-check-box">
                     <i class="fa-solid fa-check Icon-check"></i>
+                    <i class="fa-solid fa-trash-can"></i>
+                   </div>
+                    <div class="icon-check-box">
+                    <i class="fa-solid fa-trash-can"></i>
                    </div>
                 </td>
             </tr> -->
-
+            
         </tbody>
     </table>
 
+    <div id="numberofItemDiv" style="display: none;"></div>
 </body>
 <script src=".//script/drag-drop.js"></script>
 
