@@ -126,21 +126,19 @@ dropZone.addEventListener("drop", (event) => {
                 fileName = splitName[0].substring(0, 13) + "... ." + splitName[1];
             }
             
-            let numberofItemDiv = document.getElementById("numberofItemDiv");
-            let uploadedItemNumber = 1;
-            if (numberofItemDiv.innerText > 0) {
-                numberofItemDiv.innerText++
-                uploadedItemNumber = numberofItemDiv.innerText;
-                
-                numberofItemDiv.innerText ++;
-                
-            }
-            else{
-                numberofItemDiv.innerText = 1;
-                uploadedItemNumber = numberofItemDiv.innerText;
-            }
-           
+            // let numberofItemDiv = document.getElementById("numberofItemDiv");
+            // let uploadedItemNumber = 1;
+            // if (numberofItemDiv.innerText > 0) {
+            //     numberofItemDiv.innerText++
+            //     uploadedItemNumber = numberofItemDiv.innerText;   
+            // }
+            // else{
+            //     numberofItemDiv.innerText = 1;
+            //     uploadedItemNumber = numberofItemDiv.innerText;
+            // }
             
+
+
             // let fileTotal = Math.floor(total / 1000); //gettting total file size in KB from bytes
             let fileSize;
             (file.size < 1024) ? fileSize = file.size + " KB" : fileSize = (file.size / (1024 * 1024)).toFixed(2) + " MB";
@@ -149,7 +147,7 @@ dropZone.addEventListener("drop", (event) => {
             let tr = document.createElement("tr");
             tr.innerHTML = `
             <tr>
-            <th scope="row">${uploadedItemNumber}</th>
+            <th id="number" scope="row"></th>
             <td class="td ">${fileName}</td>
             <td class="td d-flex justify-content-center"><img src="${imgSource}" class="image" alt=""></td>
             <td class="td"> ${fileSize}</td>
@@ -157,41 +155,62 @@ dropZone.addEventListener("drop", (event) => {
             <td  class="td d-flex justify-content-between">
                 <div class="progress-box">
                     <div class="uploadProgress_backround">
-
-                        <div class="uploadProgress"></div>
-                        
+                        <div class="uploadProgress"></div> 
                     </div>
-
                         <span class="percent"></span>
-
                 </div>
                 <div class="icon-check-box">
                     <i class="fa-solid fa-check Icon-check"></i>
                 </div>
-               
             </td>
             <td class="td">
                 <div class="icon-delete-box d-flex justify-content-center">
-                    <i class="fa-solid fa-trash-can Icon-delete"></i>
+                    <i class="fa-solid fa-trash-can Icon-delete" id = "Icon-delete"></i>
                 </div>
             </td>
             </tr>`;
 
+            
+
             tBody.append(tr);
+
+            numarationforItems();
+
+            //coreect this code
+            let icondeleteBoxes = document.querySelectorAll("#Icon-delete");
+                console.log(icondeleteBoxes);
+    
+               icondeleteBoxes.forEach(function(icondeleteBox){
+
+                icondeleteBox.addEventListener("click", function() {
+                    let grandParentNode = icondeleteBox.closest("tr");
+                    grandParentNode.parentNode.removeChild(grandParentNode);
+            
+                    numarationforItems();
+                    
+                  });
+               })
 
         }
 
         reader.readAsDataURL(file);
        
-
     }
-
-
 
 
 })
 
 
-
-  
+        
+function numarationforItems (){
+    let numbers = document.querySelectorAll("#number");
+    let  temp  = 0;
+    numbers.forEach(function(number){
+      
+      temp++;
+      number.innerText = temp;
+    })
+}
+    
+    
 

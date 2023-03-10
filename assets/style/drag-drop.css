@@ -99,9 +99,15 @@ td, th {
 
 .Icon-delete {
   cursor: pointer;
+  transition: transform 0.4s ease-in-out;
 }
 
 .image {
   height: 30px;
   width: 30px;
+}
+
+.Icon-delete:hover {
+  color: rgb(198, 192, 192);
+  transform: scale(2);
 }/*# sourceMappingURL=drag-drop.css.map */
