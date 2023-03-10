@@ -2,6 +2,8 @@ const dropZone = document.querySelector(".dropZone")
 const inputFile = document.getElementById("inputFile");
 const icon = document.querySelector("#icon");
 const tHead = document.querySelector(".tHead")
+let buttonBox = document.querySelector(".btn-box")
+let fileNameExtension = document.getElementById("fileNameExtension");
 
 let files; // dropped filles will be assigned to this global variable
 
@@ -42,11 +44,12 @@ inputFile.onchange = function(event){
             let imgSource = e.target.result;
             console.log(imgSource);
 
-            let fileName = file.name; //getting file name
-            if (fileName.length >= 12) { //if file name length is greater than 12 then split it and add ...
-                let splitName = fileName.split('.');
-                fileName = splitName[0].substring(0, 13) + "... ." + splitName[1];
-            }
+            // let fileName = file.name; //getting file name
+            // if (fileName.length >= 12) { //if file name length is greater than 12 then split it and add ...
+            //     let splitName = fileName.split('.');
+            //     fileName = splitName[0].substring(0, 13) + "... ." + splitName[1];
+            // }
+            let fileName = file.name.length >= 12 ? file.name.split('.')[0].substring(0, 13) + "... ." + file.name.split('.')[1] : file.name;
 
             // let fileTotal = Math.floor(total / 1000); //gettting total file size in KB from bytes
             let fileSize;
@@ -121,53 +124,37 @@ dropZone.addEventListener("drop", (event) => {
             
             console.log(imgSource);
 
-            let fileName = file.name; //getting file name
-            if (fileName.length >= 12) { //if file name length is greater than 12 then split it and add ...
-                let splitName = fileName.split('.');
-                fileName = splitName[0].substring(0, 13) + "... ." + splitName[1];
-            }
-            
-            // let numberofItemDiv = document.getElementById("numberofItemDiv");
-            // let uploadedItemNumber = 1;
-            // if (numberofItemDiv.innerText > 0) {
-            //     numberofItemDiv.innerText++
-            //     uploadedItemNumber = numberofItemDiv.innerText;   
-            // }
-            // else{
-            //     numberofItemDiv.innerText = 1;
-            //     uploadedItemNumber = numberofItemDiv.innerText;
-            // }
-            
-
-
-            // let fileTotal = Math.floor(total / 1000); //gettting total file size in KB from bytes
+       
+            fileNameExtension.innerText++;
+            let fileName = file.name.length >= 2 ? file.name.split('.')[0].substring(0, 13) + fileNameExtension.innerText  + "... ." + file.name.split('.')[1]  : file.name;
+              
             let fileSize;
             (file.size < 1024) ? fileSize = file.size + " KB" : fileSize = (file.size / (1024 * 1024)).toFixed(2) + " MB";
-
-
-            
+           
             if (tHead.innerText == "") {
+       
+                let deleteAllbtn = document.createElement("button");
+                deleteAllbtn.setAttribute("class", "btn btn-danger col-10 Delete-all");
+                deleteAllbtn.textContent = "Delete all";
+                buttonBox.appendChild(deleteAllbtn);
                 let Headtr = document.createElement("tr")
+                Headtr.classList.add("trHead")
                 Headtr.innerHTML = `
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">File_Name</th>
-                    <th scope="col">File_content</th>
-                    <th scope="col">File_Size</th>
-                    <th scope="col">File_Type</th>
-                    <th scope="col">Progress</th>
-                    <th scope="col">Delete</th>
-                </tr>
-                </thead>`;
-            
-            tHead.append(Headtr);
+                <th scope="col">#</th>
+                <th scope="col">File_Name</th>
+                <th scope="col">File_content</th>
+                <th scope="col">File_Size</th>
+                <th scope="col">File_Type</th>
+                <th scope="col">Progress</th>
+                <th scope="col">Delete</th>`;
+
+                 tHead.append(Headtr);
 
             }           
 
             let Bodytr = document.createElement("tr");
+            Bodytr.classList.add("trItems")
             Bodytr.innerHTML = `
-            <tr id = "trItems">
             <th id="number" scope="row"></th>
             <td class="td ">${fileName}</td>
             <td class="td d-flex justify-content-center"><img src="${imgSource}" class="image" alt=""></td>
@@ -188,10 +175,10 @@ dropZone.addEventListener("drop", (event) => {
                 <div class="icon-delete-box d-flex justify-content-center">
                     <i class="fa-solid fa-trash-can Icon-delete" id = "Icon-delete"></i>
                 </div>
-            </td>
-            </tr>`;
+            </td>`;
+
             const tBody = document.querySelector(".tBody")
-            tBody.append(Bodytr);
+            tBody.appendChild(Bodytr);
 
             numarationforItems();
 
@@ -202,13 +189,42 @@ dropZone.addEventListener("drop", (event) => {
                icondeleteBoxes.forEach(function(icondeleteBox){
 
                 icondeleteBox.addEventListener("click", function() {
-                    let grandParentNode = icondeleteBox.closest("tr");
-                    grandParentNode.parentNode.removeChild(grandParentNode);
+                    // let colsestTr = icondeleteBox.closest("tr");
+                    // if (colsestTr) {
+                    //     colsestTr.parentNode.removeChild(colsestTr);
+                    // }
                     
-                    let trItems = document.getElementById("trItems")
-                    if (trItems.innerHTML == "") {
+                    let colsestTd = icondeleteBox.closest("td");
+                    console.log(colsestTd);
+                        if (colsestTd) {
+                            // let colsestTr = colsestTd.closest("tr");
+                            let mainTr = colsestTd.parentElement;
+                            console.log(mainTr);
+                            // let colsestTr = icondeleteBox.closest("tr.trItems");
+                            let trPArent = mainTr.parentNode;
+                            console.log(trPArent);
+                            if (trPArent) {
+                                mainTr.parentNode.removeChild(mainTr);
+                            }
+                        }
+                    
+                    // let trItems = document.querySelector(".trItems")
+                    let numbers = document.querySelectorAll("#number");
+                    console.log(numbers);
+                    // !trItems.childElementCount
+                    if (!numbers.length>0) {
                         
-                        tHead.parentNode.removeChild(tHead)
+                        tHeadChildTr = document.querySelector(".trHead")
+                        console.log(tHeadChildTr);
+                        tHeadChildTrParent = tHeadChildTr.parentNode;  // there is some bug 
+                        console.log(tHeadChildTrParent);
+                        tHeadChildTr.parentNode.removeChild(tHeadChildTr)
+                        console.log(tHeadChildTr);
+
+                        let deleteAllButton = document.querySelector(".Delete-all");
+                        deleteAllButton.parentNode.removeChild(deleteAllButton);
+
+
                     }
 
                     numarationforItems();
