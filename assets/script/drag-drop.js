@@ -7,16 +7,16 @@ let fileNameExtension = document.getElementById("fileNameExtension");
 
 let files; // dropped filles will be assigned to this global variable
 
+
+
 icon.addEventListener("click", function () {
     inputFile.click();
 
 });
 
-
 dropZone.addEventListener("dragover", (event) => {
     event.preventDefault()
     dropZone.classList.add("dropZone_over");
-
 })
 
 dropZone.addEventListener("dragleave", () => {
@@ -24,13 +24,9 @@ dropZone.addEventListener("dragleave", () => {
 
 })
 
-
 // manage while choosing file
 inputFile.onchange = function (event) {
     event.preventDefault();
-    // files = event.dataTransfer.files()
-    // console.log(event.dataTransfer);
-
 
     // Remove the style while drop event accur
     dropZone.classList.remove("dropZone_over");
@@ -44,33 +40,26 @@ inputFile.onchange = function (event) {
             let imgSource = e.target.result;
             // the number of uploaded item
 
-
-            console.log(imgSource);
-
-
             fileNameExtension.innerText++;
             let fileName = file.name.length >= 2 ? file.name.split('.')[0].substring(0, 13) + fileNameExtension.innerText + "... ." + file.name.split('.')[1] : file.name;
 
             let fileSize;
             (file.size < 1024) ? fileSize = file.size + " KB" : fileSize = (file.size / (1024 * 1024)).toFixed(2) + " MB";
 
+
+            
+
             CreateTableColumns();
-
             CreateTableContent(fileName, imgSource, fileSize);
-
             numarationforItems();
-
-        
             DeleteFilesUsingIcon();
 
+            let deleteAll = document.querySelector(".Delete-all");  // write tomorrow
+            DeleteButton(deleteAll)
+
         }
-
         reader.readAsDataURL(file);
-
-
-
     });
-
 
 }
 
@@ -78,7 +67,6 @@ inputFile.onchange = function (event) {
 dropZone.addEventListener("drop", (event) => {
     event.preventDefault();
    
-
     // Remove the style while drop event accur
     dropZone.classList.remove("dropZone_over");
 
@@ -101,23 +89,21 @@ dropZone.addEventListener("drop", (event) => {
             let fileSize;
             (file.size < 1024) ? fileSize = file.size + " KB" : fileSize = (file.size / (1024 * 1024)).toFixed(2) + " MB";
 
+
+           
+
             CreateTableColumns();
-
-            // let deleteAll = document.querySelector(".Delete-all");  // write tomorrow
-
-
-
             CreateTableContent(fileName, imgSource, fileSize);
             numarationforItems();
-
             DeleteFilesUsingIcon();
+
+            let deleteAll = document.querySelector(".Delete-all");  // write tomorrow
+            DeleteButton(deleteAll)
 
         }
 
         reader.readAsDataURL(file);
-
     }
-
 
 })
 
@@ -238,19 +224,23 @@ function DeleteFilesUsingIcon(){
     })
 }
 
-
 // finish tomorrow
 function DeleteButton(deleteAll){
 
     deleteAll.addEventListener("click", function () {
         
-        let colsestTd = icondeleteBox.closest("td");
-        console.log(colsestTd);
-        if (colsestTd) {
-            let mainTr = colsestTd.parentElement;
-            console.log(mainTr);
+        trHead = document.querySelector(".trHead")
+        trItems = document.querySelector(".trItems")
+
+        if (trHead) {
+            trHead.parentNode.removeChild(trHead);
         }
 
+        if (trItems) {
+            trItems.parentNode.removeChild(trItems);
+        }
+
+        deleteAll.parentNode.removeChild(deleteAll);  // fix it 
 
         })
 }
