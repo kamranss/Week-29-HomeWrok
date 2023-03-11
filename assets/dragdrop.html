@@ -18,7 +18,7 @@
 
     <div class="dropZone ">
         <div class="dropZone_div d-flex justify-content-center align-items-center">
-            <input id="inputFile" class="file d-none" type="file">
+            <input id="inputFile" class="file d-none" type="file" multiple>
             <i id="icon" class="fa-solid fa-cloud-arrow-up"></i>
         </div>
         <p> Drag & Drop, upload file</p>
@@ -31,44 +31,15 @@
     </div>
     <table class="col-10 tablee">
         <thead class="tHead">
-            <!-- <tr>
-                <th scope="col">#</th>
-                <th scope="col">File_Name</th>
-                <th scope="col">File_content</th>
-                <th scope="col">File_Size</th>
-                <th scope="col">File_Type</th>
-                <th scope="col">Progress</th>
-                <th scope="col">Delete</th>
-            </tr> -->
+          
         </thead>
         <tbody class="tBody">  
-            <!-- <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td><img src="" alt=""></td>
-                <td>@mdo</td>
-                <td> <i class="fa-solid fa-file"></i></td>
-                <td class="td-4 d-flex justify-content-between">
-                    <div class="progress-box">
-                       <div class="uploadProgress_backround" >
-                        <div class="uploadProgress"></div>
-                       </div>
-                        <span class="percent"></span>
-                    </div>
-                   <div class="icon-check-box">
-                    <i class="fa-solid fa-check Icon-check"></i>
-                    <i class="fa-solid fa-trash-can"></i>
-                   </div>
-                    <div class="icon-check-box">
-                    <i class="fa-solid fa-trash-can"></i>
-                   </div>
-                </td>
-            </tr> -->
+            
             
         </tbody>
     </table>
 
-    <div id="fileNameExtension" style="display: none;">0</div>
+    <div id="fileNameExtension" style="display: none;">0</div> // Static data for numeration
 </body>
 <script src=".//script/drag-drop.js"></script>
 
