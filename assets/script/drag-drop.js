@@ -33,8 +33,8 @@ inputFile.onchange = function (event) {
 
     // Get the dropped files
     Array.from(event.target.files).forEach(file => {
-        let reader = new FileReader();
 
+        let reader = new FileReader();
         reader.onloadend = function (e) {
 
             let imgSource = e.target.result;
@@ -45,9 +45,6 @@ inputFile.onchange = function (event) {
 
             let fileSize;
             (file.size < 1024) ? fileSize = file.size + " KB" : fileSize = (file.size / (1024 * 1024)).toFixed(2) + " MB";
-
-
-            
 
             CreateTableColumns();
             CreateTableContent(fileName, imgSource, fileSize);
@@ -72,7 +69,7 @@ dropZone.addEventListener("drop", (event) => {
 
     // Get the dropped files
     let files = event.dataTransfer.files;
-    console.log(event);
+   
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
 
@@ -88,9 +85,6 @@ dropZone.addEventListener("drop", (event) => {
 
             let fileSize;
             (file.size < 1024) ? fileSize = file.size + " KB" : fileSize = (file.size / (1024 * 1024)).toFixed(2) + " MB";
-
-
-           
 
             CreateTableColumns();
             CreateTableContent(fileName, imgSource, fileSize);
